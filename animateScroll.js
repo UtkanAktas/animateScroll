@@ -30,6 +30,14 @@ SOFTWARE.
 			onStep:function(progress, remaining){
 					
 			},
+			onStart : function($element, position){
+				//position === scrollTop value of element before starting animate
+				//element === element wrapped by jQuery
+				
+			},
+			complete : function(){
+				
+			},
 			duration:500,
 		},
 		_plugin = "animateScroll";
@@ -76,14 +84,20 @@ SOFTWARE.
 		},
 		animateIt : function(tag){
 			var trg = this.settings.position,
+				$el = $(tag),
 				self = this,
+				curPos,
 				duration = this.settings.duration;
 				
-			$( tag ).animate({"scrollTop" : trg},{
+				curPos = $el.scrollTop();
+				
+				this.settings.onStart( $el, curPos );
+			$el.animate({"scrollTop" : trg},{
 				duration:duration,
 				progress:function(elem, progress, remaining){
 					self.settings.onStep(progress, remaining);
-				}
+				},
+				complete: self.settings.complete()
 			});
 		},
 		checkHtmlOrBody : function(){
