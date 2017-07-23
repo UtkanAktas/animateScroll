@@ -97,7 +97,7 @@ SOFTWARE.
 				progress:function(elem, progress, remaining){
 					self.settings.onStep(progress, remaining);
 				},
-				complete: self.settings.complete()
+				complete: self.settings.complete
 			});
 		},
 		checkHtmlOrBody : function(){
